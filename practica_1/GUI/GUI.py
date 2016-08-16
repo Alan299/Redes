@@ -9,6 +9,7 @@ import sys
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 import  Code.ScientificCalculator as calc
+import  Code.Acceso as acc
 
 class GUI(QtGui.QMainWindow):
     def __init__(self):
@@ -47,6 +48,7 @@ class GUI(QtGui.QMainWindow):
         nuevo_usuario = QtGui.QPushButton("Registrar Usuario",self) 
         nuevo_usuario.move(10,250)
         nuevo_usuario.resize(nuevo_usuario.sizeHint())
+        nuevo_usuario.clicked.connect(self.showDialog)
         for i in listabotones:
             i.resize(35,30)
             i.clicked.connect(self.escribeNumeros)
@@ -89,6 +91,24 @@ class GUI(QtGui.QMainWindow):
         self.setWindowTitle("Calculadora")
         self.setWindowIcon(QtGui.QIcon(""))
         self.show()
+        
+        
+    
+        
+    def showDialog(self):
+        
+        usuario, ok = QtGui.QInputDialog.getText(self, 'Input Dialog', 
+            'Usuario:')
+        contrasena, ok_2 = QtGui.QInputDialog.getText(self, 'Input Dialog', 
+            'Contrasena:')
+            
+        if ok_2:
+            registrarUsuario(str(usuario),str(contrasena))            
+        
+           
+    
+        
+        
     def escribeNumeros(self):
         sender = self.sender()
         n1 = int(sender.text())
@@ -152,6 +172,15 @@ class GUI(QtGui.QMainWindow):
             self.calcu.potencia()
         self.line.setText(str(self.calcu.resultado))
         self.operador == ""
+
+
+def registrarUsuario(usuario, contrasena):
+        contrasena = acc.suma_cinco(contrasena)
+        f = open('Code\input.txt','a')
+        f.write('\n'+usuario+","+contrasena) 
+        f.close()   
+        
+        
         
 def main():
     app = QtGui.QApplication(sys.argv)
