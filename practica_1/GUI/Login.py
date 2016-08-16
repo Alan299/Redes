@@ -7,7 +7,7 @@ Created on Sat Aug 13 21:32:40 2016
 
 from PyQt4 import QtGui
 from Code import Acceso
-import GUI 
+from GUI import GUI 
 
 
 class Login(QtGui.QDialog):
@@ -50,6 +50,6 @@ if __name__ == '__main__':
     login = Login()
 
     if login.exec_() == QtGui.QDialog.Accepted:
-        g = GUI.GUI.main()
+        g = GUI.GUI()
         g.show()
         sys.exit(app.exec_())
